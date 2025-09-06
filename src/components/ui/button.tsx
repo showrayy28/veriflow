@@ -9,12 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        default: "bg-primary text-primary-foreground hover:bg-primary-light shadow-card transition-all duration-300",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-card",
+        outline: "border-2 border-primary/20 bg-card hover:bg-primary/5 hover:border-primary/40 text-primary shadow-card transition-all duration-300",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-card",
+        ghost: "hover:bg-accent/10 hover:text-accent transition-all duration-300",
+        link: "text-primary underline-offset-4 hover:underline transition-all duration-300",
+        hero: "bg-gradient-ocean text-primary-foreground hover:shadow-ocean hover:scale-105 shadow-card transition-all duration-300 font-semibold",
+        success: "bg-success text-success-foreground hover:bg-success/90 shadow-card transition-all duration-300",
+        ocean: "bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-glow transition-all duration-300",
+        forest: "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-card transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",
