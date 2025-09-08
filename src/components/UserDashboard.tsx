@@ -93,33 +93,39 @@ const UserDashboard = () => {
   return (
     <div className="space-y-6">
       {/* Wallet Overview */}
-      <div className="grid gap-6 md:grid-cols-3 mb-8">
-        <div className="card-modern hover:shadow-glow-blue p-6 rounded-2xl border-primary/20">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="text-sm font-medium text-white/70">Wallet Balance</h3>
-            <Wallet className="h-5 w-5 text-primary animate-bounce-gentle" />
-          </div>
-          <div className="text-3xl font-bold text-gradient font-heading">{walletData.balance} ETH</div>
-          <p className="text-xs text-green-400 font-medium">+12% from last month</p>
-        </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card className="border-primary/20 shadow-card hover:shadow-ocean transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
+            <Wallet className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-primary">{walletData.balance} ETH</div>
+            <p className="text-xs text-muted-foreground">+12% from last month</p>
+          </CardContent>
+        </Card>
 
-        <div className="card-modern hover:shadow-glow-green p-6 rounded-2xl border-accent/20">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="text-sm font-medium text-white/70">Carbon Tokens</h3>
-            <Leaf className="h-5 w-5 text-secondary animate-pulse" />
-          </div>
-          <div className="text-3xl font-bold text-accent font-heading">{walletData.carbonTokens}</div>
-          <p className="text-xs text-white/60">Active credits owned</p>
-        </div>
+        <Card className="border-accent/20 shadow-card hover:shadow-glow transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Carbon Tokens</CardTitle>
+            <Leaf className="h-4 w-4 text-accent" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-accent">{walletData.carbonTokens}</div>
+            <p className="text-xs text-muted-foreground">Active credits owned</p>
+          </CardContent>
+        </Card>
 
-        <div className="card-modern hover:shadow-glow p-6 rounded-2xl border-success/20">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="text-sm font-medium text-white/70">CO₂ Offset</h3>
-            <TrendingUp className="h-5 w-5 text-success animate-float" />
-          </div>
-          <div className="text-3xl font-bold text-success font-heading">{walletData.totalOffset}t</div>
-          <p className="text-xs text-white/60">Total CO₂ retired</p>
-        </div>
+        <Card className="border-success/20 shadow-card hover:shadow-glow transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">CO₂ Offset</CardTitle>
+            <TrendingUp className="h-4 w-4 text-success" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-success">{walletData.totalOffset}t</div>
+            <p className="text-xs text-muted-foreground">Total CO₂ retired</p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Main Content Tabs */}
@@ -130,86 +136,76 @@ const UserDashboard = () => {
           <TabsTrigger value="transactions">Transactions</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="marketplace" className="space-y-6">
-          <div className="glass-card rounded-2xl p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-primary/20 rounded-xl">
-                <ShoppingCart className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gradient font-heading">Carbon Credit Marketplace</h2>
-                <p className="text-white/60">Discover and purchase verified blue carbon credits from coastal ecosystem projects</p>
-              </div>
-            </div>
-            
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {credits.map((credit) => (
-                <div key={credit.id} className="group card-modern hover:shadow-glow rounded-2xl overflow-hidden border neon-border">
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={credit.image} 
-                      alt={credit.project}
-                      className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute top-3 right-3">
-                      <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        credit.status === "verified" 
-                          ? "bg-success/20 text-success border border-success/30" 
-                          : "bg-warning/20 text-warning border border-warning/30"
-                      }`}>
-                        {credit.status === "verified" ? "✅ Verified" : "⏳ Pending"}
+        <TabsContent value="marketplace" className="space-y-4">
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ShoppingCart className="h-5 w-5 text-primary" />
+                Available Carbon Credits
+              </CardTitle>
+              <CardDescription>
+                Discover and purchase verified blue carbon credits from coastal ecosystem projects
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {credits.map((credit) => (
+                  <Card key={credit.id} className="border hover:shadow-ocean transition-all duration-300 group overflow-hidden">
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <img 
+                        src={credit.image} 
+                        alt={credit.project}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge variant={credit.status === "verified" ? "default" : "secondary"} className="text-xs">
+                          {credit.status === "verified" ? "Verified" : "Pending"}
+                        </Badge>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                        <h3 className="font-semibold text-white text-sm line-clamp-1">{credit.project}</h3>
+                        <p className="text-white/80 text-xs">{credit.description}</p>
                       </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-white font-semibold text-lg mb-1">{credit.project}</h3>
-                      <p className="text-white/80 text-sm">{credit.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-white/60 text-sm">
-                        <MapPin className="h-4 w-4" />
-                        {credit.location}
-                      </div>
-                      <div className="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-medium">
-                        {credit.type}
-                      </div>
-                    </div>
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <p className="text-xs text-muted-foreground flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {credit.location}
+                          </p>
+                          <Badge variant="outline" className="text-xs">
+                            {credit.type}
+                          </Badge>
+                        </div>
 
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-white/60">CO₂ Volume:</span>
-                        <span className="font-semibold text-white">{credit.co2Volume}t</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Price:</span>
-                        <span className="font-bold text-primary text-lg">{credit.price} ETH</span>
-                      </div>
-                    </div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">CO₂ Volume:</span>
+                            <span className="font-medium">{credit.co2Volume}t</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Price:</span>
+                            <span className="font-bold text-primary">{credit.price} ETH</span>
+                          </div>
+                        </div>
 
-                    <div className="flex gap-3 pt-2">
-                      <Button className="flex-1 glass-card-light text-white/80 hover:text-white border-white/20 hover:border-white/40">
-                        <Eye className="h-4 w-4 mr-2" />
-                        View Details
-                      </Button>
-                      <Button 
-                        className={`flex-1 font-semibold transition-all duration-300 ${
-                          credit.status === "verified" 
-                            ? "bg-primary hover:bg-primary-light shadow-glow-blue hover:scale-105" 
-                            : "bg-muted text-white/50 cursor-not-allowed"
-                        }`}
-                        disabled={credit.status !== "verified"}
-                      >
-                        {credit.status === "verified" ? "🚀 Buy Credit" : "⏳ Pending"}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                        <div className="flex gap-2 pt-2">
+                          <Button variant="outline" size="sm" className="flex-1">
+                            <Eye className="h-3 w-3" />
+                            View
+                          </Button>
+                          <Button variant="hero" size="sm" className="flex-1" disabled={credit.status !== "verified"}>
+                            Buy Credit
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="portfolio" className="space-y-4">
