@@ -14,9 +14,14 @@ import {
   TrendingUp,
   Globe,
   FileCheck,
-  Satellite
+  Satellite,
+  MapPin
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import projectMangrove from "@/assets/project-mangrove.jpg";
+import projectSeagrass from "@/assets/project-seagrass.jpg";
+import projectSaltmarsh from "@/assets/project-saltmarsh.jpg";
+import projectKelp from "@/assets/project-kelp.jpg";
 
 const AdminDashboard = () => {
   // Sample data
@@ -50,7 +55,9 @@ const AdminDashboard = () => {
       date: "2024-01-15",
       status: "verified",
       aiScore: 94,
-      details: "Satellite imagery confirms 12.5t CO₂ sequestration"
+      details: "Satellite imagery confirms 12.5t CO₂ sequestration",
+      image: projectMangrove,
+      location: "Palawan, Philippines"
     },
     {
       id: 2,
@@ -58,7 +65,9 @@ const AdminDashboard = () => {
       date: "2024-01-14",
       status: "pending",
       aiScore: 87,
-      details: "Awaiting drone imagery validation"
+      details: "Awaiting drone imagery validation",
+      image: projectSeagrass,
+      location: "Maldives Atolls"
     },
     {
       id: 3,
@@ -66,7 +75,19 @@ const AdminDashboard = () => {
       date: "2024-01-13", 
       status: "flagged",
       aiScore: 62,
-      details: "Inconsistent vegetation coverage detected"
+      details: "Inconsistent vegetation coverage detected",
+      image: projectSaltmarsh,
+      location: "Rio Grande do Sul, Brazil"
+    },
+    {
+      id: 4,
+      project: "Kelp Forest - California",
+      date: "2024-01-12",
+      status: "verified",
+      aiScore: 91,
+      details: "Excellent kelp density and carbon absorption rates",
+      image: projectKelp,
+      location: "Monterey Bay, CA"
     }
   ];
 
@@ -229,30 +250,57 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {verificationLogs.map((log) => (
-                  <div key={log.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className={`h-3 w-3 rounded-full ${
-                        log.status === 'verified' ? 'bg-success' : 
-                        log.status === 'pending' ? 'bg-warning' : 'bg-destructive'
-                      }`} />
-                      <div>
-                        <p className="font-medium text-sm">{log.project}</p>
-                        <p className="text-xs text-muted-foreground">{log.details}</p>
+                  <Card key={log.id} className="group hover:shadow-ocean transition-all duration-300 overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="flex">
+                        <div className="relative w-32 h-24 flex-shrink-0">
+                          <img 
+                            src={log.image} 
+                            alt={log.project}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-2 right-2">
+                            <div className={`w-3 h-3 rounded-full ${
+                              log.status === 'verified' ? 'bg-success' : 
+                              log.status === 'pending' ? 'bg-warning' : 'bg-destructive'
+                            }`} />
+                          </div>
+                        </div>
+                        <div className="flex-1 p-4">
+                          <div className="flex items-start justify-between h-full">
+                            <div className="space-y-2 flex-1">
+                              <div>
+                                <h3 className="font-semibold text-sm">{log.project}</h3>
+                                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                                  <MapPin className="h-3 w-3" />
+                                  {log.location}
+                                </p>
+                              </div>
+                              <p className="text-xs text-muted-foreground italic">{log.details}</p>
+                            </div>
+                            <div className="text-right space-y-2 ml-4">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground">AI Score:</span>
+                                <Badge variant={
+                                  log.aiScore >= 90 ? 'default' : 
+                                  log.aiScore >= 80 ? 'secondary' : 'destructive'
+                                } className="text-xs">
+                                  {log.aiScore}%
+                                </Badge>
+                              </div>
+                              <p className="text-xs text-muted-foreground">{log.date}</p>
+                              <Badge variant={
+                                log.status === 'verified' ? 'default' : 
+                                log.status === 'pending' ? 'secondary' : 'destructive'
+                              } className="text-xs capitalize">
+                                {log.status}
+                              </Badge>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">AI Score: {log.aiScore}%</span>
-                        <Badge variant={
-                          log.status === 'verified' ? 'default' : 
-                          log.status === 'pending' ? 'secondary' : 'destructive'
-                        }>
-                          {log.status}
-                        </Badge>
-                      </div>
-                      <p className="text-xs text-muted-foreground">{log.date}</p>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </CardContent>

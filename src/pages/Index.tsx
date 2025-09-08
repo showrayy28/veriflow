@@ -19,11 +19,11 @@ const Index = () => {
         <div className="relative h-full flex items-center justify-center text-center text-primary-foreground">
           <div className="space-y-4 px-4 max-w-4xl">
             <h1 className="text-4xl md:text-6xl font-bold animate-float">
-              Blue Carbon Credit Marketplace
+              Veriflow Carbon Credit Platform
             </h1>
             <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-              Trade verified coastal ecosystem carbon credits on blockchain. 
-              Protecting mangroves, seagrass, and wetlands for a sustainable future.
+              Verify and trade authentic blue carbon credits with blockchain transparency. 
+              Protecting coastal ecosystems through verified carbon sequestration.
             </p>
           </div>
         </div>
@@ -41,7 +41,7 @@ const Index = () => {
       <footer className="border-t bg-card/50 backdrop-blur-sm mt-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-sm text-muted-foreground">
-            <p>© 2024 Blue Carbon Credit Marketplace. Powered by blockchain technology.</p>
+            <p>© 2024 Veriflow. Powered by blockchain technology.</p>
             <p className="mt-2">Protecting coastal ecosystems • Verified transparency • Global impact</p>
           </div>
         </div>

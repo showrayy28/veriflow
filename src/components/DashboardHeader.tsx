@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Wallet, User, Shield, Bell, Settings } from "lucide-react";
+import veriflowLogo from "@/assets/veriflow-logo.png";
 
 interface DashboardHeaderProps {
   userRole: "user" | "admin";
@@ -15,12 +16,16 @@ const DashboardHeader = ({ userRole, onRoleChange }: DashboardHeaderProps) => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo and Title */}
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-ocean shadow-ocean">
-              <div className="h-6 w-6 rounded-full bg-primary-foreground/90" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-ocean shadow-ocean p-1">
+              <img 
+                src={veriflowLogo} 
+                alt="Veriflow Logo" 
+                className="h-full w-full object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-primary">Blue Carbon</h1>
-              <p className="text-xs text-muted-foreground">Credit Marketplace</p>
+              <h1 className="text-xl font-bold text-primary">Veriflow</h1>
+              <p className="text-xs text-muted-foreground">Carbon Credit Verification</p>
             </div>
           </div>
 

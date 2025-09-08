@@ -15,6 +15,10 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import projectMangrove from "@/assets/project-mangrove.jpg";
+import projectSeagrass from "@/assets/project-seagrass.jpg";
+import projectSaltmarsh from "@/assets/project-saltmarsh.jpg";
+import projectKelp from "@/assets/project-kelp.jpg";
 
 const UserDashboard = () => {
   // Sample data
@@ -40,9 +44,10 @@ const UserDashboard = () => {
       location: "Palawan, Philippines", 
       co2Volume: 12.5,
       price: 0.045,
-      image: "/api/placeholder/300/200",
+      image: projectMangrove,
       status: "verified",
-      type: "Mangrove"
+      type: "Mangrove",
+      description: "Coastal mangrove restoration protecting biodiversity"
     },
     {
       id: 2,
@@ -50,9 +55,10 @@ const UserDashboard = () => {
       location: "Queensland, Australia",
       co2Volume: 8.2,
       price: 0.052,
-      image: "/api/placeholder/300/200", 
+      image: projectSeagrass,
       status: "verified",
-      type: "Seagrass"
+      type: "Seagrass",
+      description: "Marine seagrass meadow preservation"
     },
     {
       id: 3,
@@ -60,9 +66,21 @@ const UserDashboard = () => {
       location: "Louisiana, USA",
       co2Volume: 15.8,
       price: 0.038,
-      image: "/api/placeholder/300/200",
+      image: projectSaltmarsh,
       status: "pending",
-      type: "Wetland"
+      type: "Wetland",
+      description: "Salt marsh conservation for carbon sequestration"
+    },
+    {
+      id: 4,
+      project: "Kelp Forest Restoration - California",
+      location: "Monterey Bay, CA",
+      co2Volume: 22.1,
+      price: 0.049,
+      image: projectKelp,
+      status: "verified", 
+      type: "Kelp Forest",
+      description: "Giant kelp forest ecosystem restoration"
     }
   ];
 
@@ -132,26 +150,30 @@ const UserDashboard = () => {
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {credits.map((credit) => (
-                  <Card key={credit.id} className="border hover:shadow-ocean transition-all duration-300 group">
-                    <div className="aspect-video w-full overflow-hidden rounded-t-lg bg-gradient-subtle">
-                      <div className="flex h-full items-center justify-center text-muted-foreground">
-                        <Leaf className="h-12 w-12" />
+                  <Card key={credit.id} className="border hover:shadow-ocean transition-all duration-300 group overflow-hidden">
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <img 
+                        src={credit.image} 
+                        alt={credit.project}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge variant={credit.status === "verified" ? "default" : "secondary"} className="text-xs">
+                          {credit.status === "verified" ? "Verified" : "Pending"}
+                        </Badge>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                        <h3 className="font-semibold text-white text-sm line-clamp-1">{credit.project}</h3>
+                        <p className="text-white/80 text-xs">{credit.description}</p>
                       </div>
                     </div>
                     <CardContent className="p-4">
                       <div className="space-y-3">
-                        <div>
-                          <h3 className="font-semibold text-sm line-clamp-2">{credit.project}</h3>
+                        <div className="flex items-center justify-between">
                           <p className="text-xs text-muted-foreground flex items-center gap-1">
                             <MapPin className="h-3 w-3" />
                             {credit.location}
                           </p>
-                        </div>
-                        
-                        <div className="flex items-center justify-between">
-                          <Badge variant={credit.status === "verified" ? "default" : "secondary"} className="text-xs">
-                            {credit.status === "verified" ? "Verified" : "Pending"}
-                          </Badge>
                           <Badge variant="outline" className="text-xs">
                             {credit.type}
                           </Badge>
